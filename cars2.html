@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Cars</title>
+  </head>
+  <body>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+
+    <script>
+      // 생성자(constructor)를 만든다.
+      var Car = function (x,y) {
+        this.x = x;
+        this.y = y;
+      };
+
+      // 모든 생성자에는 프로토타입 프로퍼티가 있고, 여기에 메서드를 추가할 수 있다.
+      Car.prototype.draw = function () {
+        var carHtml = '<img src="http://nostarch.com/images/car.png">';
+
+        this.carElement = $(carHtml); // html 코드 문자열을 jQuery 엘리먼트로 변환
+
+        this.carElement.css({ // css는 위치, 색, 크기 등 각종 속성 값에 접근
+          position: "absolute",
+          left: this.x,
+          top: this.y
+        })
+
+        $("body").append(this.carElement); // 본문 body에 자동차 이미지 삽입
+      };
+
+      var tesla = new Car(50, 50);
+      var hyundai =  new Car(150, 150);
+
+      tesla.draw();
+      hyundai.draw();
+
+
+      // 이동하는 메서드를 추가하자.
+      Car.prototype.moveRight = function () {
+        this.x += 5;
+
+        this.carElement.css({
+          left: this.x,
+          top: this.y
+        });
+      };
+      // 이제 콘솔을 열고 tesla.moveRight();를 입력해보자.
+    </script>
+  </body>
+</html>
